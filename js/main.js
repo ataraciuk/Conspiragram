@@ -4,9 +4,22 @@ conspiragram.userScores = [];
 conspiragram.processedIds = [];
 conspiragram.url = "https://api.instagram.com/v1/tags/conspiragram/media/recent?client_id=fe9bac53a2bb44b49558d1297e33e046&count=10000";
 conspiragram.ul = $('#main > ul');
+conspiragram.entriesPP = 2;
 
 conspiragram.init = function(){
     conspiragram.callInstagram([], conspiragram.url);
+$('.pagination').jqPagination({
+    paged: function(page) {
+        conspiragram.ul.empty();
+        var starting = (page - 1) * conspiragram.entriesPP;
+        var ending = starting + conspiragram.entriesPP;
+        ending = ending >= conspiragram.userScores.length ? conspiragram.userScores.length : ending;
+        for(var i = starting; i < ending; i++) {
+            var userSc = conspiragram.userScores[i];
+            conspiragram.ul.append('<li>'+userSc.score+' '+userSc.name+'<img src="'+userSc.pic+'" /></li>');
+        }
+    }
+});
 };
 
 conspiragram.callInstagram = function(posts, nextUrl) {
@@ -56,11 +69,8 @@ conspiragram.callInstagram = function(posts, nextUrl) {
             }
         }
         conspiragram.userScores = Enumerable.From(conspiragram.userScores).OrderByDescending('$.score').ThenBy('$.name').ToArray();
-        conspiragram.ul.empty();
-        for(var i = 0, lng = conspiragram.userScores.length; i < lng; i++) {
-            var userSc = conspiragram.userScores[i];
-            conspiragram.ul.append('<li>'+userSc.score+' '+userSc.name+'<img src="'+userSc.pic+'" /></li>');
-        }
+        $('.pagination').jqPagination('option', 'current_page', 1);
+        $('.pagination').jqPagination('option', 'max_page', Math.ceil(conspiragram.userScores.length / conspiragram.entriesPP));
         setTimeout(conspiragram.init, 300000);
     }
 }

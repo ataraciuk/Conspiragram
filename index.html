@@ -3,15 +3,26 @@
 <head>
 	<meta charset="UTF-8"/>
 	<title>Conspiragram Leaderboard</title>
+	<link rel="stylesheet" type="text/css" href="css/jqpagination.css"></link>
 	<link rel="stylesheet" type="text/css" href="css/style.css"></link>
 </head>
 <body>
-	<h1>Conspiragram</h1>
+	<div class="center">
+		<div class="pagination">
+		    <a href="#" class="first" data-action="first">&laquo;</a>
+		    <a href="#" class="previous" data-action="previous">&lsaquo;</a>
+		    <input type="text" readonly="readonly" />
+		    <a href="#" class="next" data-action="next">&rsaquo;</a>
+		    <a href="#" class="last" data-action="last">&raquo;</a>
+		</div>
+		<div class="clear"></div>
+	</div>	
 	<div id="main">
 		<ul>
 		</ul>
 	</div>
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="js/jquery.jqpagination.min.js"></script>
 	<script src="js/linq.min.js"></script>
 	<script src="js/main.js"></script>
 </body>

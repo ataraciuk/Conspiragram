@@ -55,7 +55,7 @@ conspiragram.callInstagram = function(posts, nextUrl) {
                 }
             }
         }
-        conspiragram.userScores = Enumerable.From(conspiragram.userScores).OrderByDescending('$.score').ToArray();
+        conspiragram.userScores = Enumerable.From(conspiragram.userScores).OrderByDescending('$.score').ThenBy('$.name').ToArray();
         conspiragram.ul.empty();
         for(var i = 0, lng = conspiragram.userScores.length; i < lng; i++) {
             var userSc = conspiragram.userScores[i];

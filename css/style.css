@@ -50,7 +50,7 @@ body{
 	clear:both;
 }
 .center {
-	margin: 0 auto;
+	margin-bottom: 20px;
 	width: 210px;
 }
 

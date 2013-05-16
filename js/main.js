@@ -3,20 +3,21 @@ var conspiragram = conspiragram || {};
 conspiragram.userScores = [];
 conspiragram.processedIds = [];
 conspiragram.url = "https://api.instagram.com/v1/tags/conspiragram/media/recent?client_id=fe9bac53a2bb44b49558d1297e33e046&count=10000";
-conspiragram.ul = $('#main > ul');
-conspiragram.entriesPP = 2;
+conspiragram.table = $('#main > table');
+conspiragram.entriesPP = 10;
 
 conspiragram.init = function(){
     conspiragram.callInstagram([], conspiragram.url);
 $('.pagination').jqPagination({
     paged: function(page) {
-        conspiragram.ul.empty();
+        conspiragram.table.empty();
         var starting = (page - 1) * conspiragram.entriesPP;
         var ending = starting + conspiragram.entriesPP;
         ending = ending >= conspiragram.userScores.length ? conspiragram.userScores.length : ending;
         for(var i = starting; i < ending; i++) {
             var userSc = conspiragram.userScores[i];
-            conspiragram.ul.append('<li>'+userSc.score+' '+userSc.name+'<img src="'+userSc.pic+'" /></li>');
+            var pointsLbl = userSc.score === 1 ? ' point' : ' points';
+            conspiragram.table.append('<tr><td>'+(i+1)+'.</td><td><img src="'+userSc.pic+'" width="50"/></td><td>'+userSc.name+'</td><td>'+userSc.score+pointsLbl+'</td></tr>');
         }
     }
 });
